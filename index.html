@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>White Solutions | Premium Digital Assets</title>
+    <meta
+      name="description"
+      content="White Solutions offers premium Algorithmic Trading Scripts, Backend Boilerplates, Smart Contract Templates, and Automation Scripts for modern builders and operators."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #040914;
+        --bg-soft: #0c1727;
+        --panel: rgba(11, 17, 29, 0.9);
+        --panel-strong: rgba(15, 22, 35, 0.96);
+        --primary: #eaf7ff;
+        --secondary: #8fe3ff;
+        --accent: #f4f7ff;
+        --muted: #9aa9c7;
+        --line: rgba(179, 200, 255, 0.12);
+        --success: #8cf5d6;
+        --warning: #f7dc8a;
+        --shadow: 0 28px 80px rgba(5, 10, 20, 0.7);
+        --glow: rgba(143, 227, 255, 0.2);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(143, 227, 255, 0.18), transparent 20%),
+          radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 22%),
+          linear-gradient(180deg, #040914 0%, #07111d 100%);
+        color: var(--accent);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+        background-size: 30px 30px;
+        mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(18px);
+        background: rgba(5, 8, 22, 0.74);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 78px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(143,227,255,0.15));
+        border: 1px solid rgba(255,255,255,0.14);
+        box-shadow: 0 10px 30px rgba(143, 227, 255, 0.15);
+      }
+
+      .brand-mark span {
+        font-size: 1.1rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .nav a:hover { color: var(--primary); }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 1.3rem;
+        border-radius: 999px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffffff 0%, #dfeeff 100%);
+        color: #071120;
+        box-shadow: 0 16px 32px rgba(255,255,255,0.12);
+      }
+
+      .hero {
+        padding: 70px 0 40px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        align-items: center;
+        gap: 36px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.5rem 0.9rem;
+        border: 1px solid rgba(143, 227, 255, 0.24);
+        background: rgba(143, 227, 255, 0.04);
+        border-radius: 999px;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--secondary);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--secondary), #c2f0ff);
+        box-shadow: 0 0 18px rgba(143, 227, 255, 0.9);
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 4vw, 5.2rem);
+        line-height: 0.95;
+        margin: 22px 0 18px;
+        letter-spacing: -0.06em;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #ffffff 0%, #c8efff 38%, #b5d0ff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-copy p {
+        margin: 0;
+        max-width: 620px;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        margin-top: 30px;
+      }
+
+      .primary-btn,
+      .secondary-btn,
+      .ghost-btn,
+      .checkout-btn,
+      .whatsapp-float {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 1rem 1.5rem;
+        border-radius: 14px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        cursor: pointer;
+      }
+
+      .primary-btn {
+        background: linear-gradient(135deg, #ffffff 0%, #dfeeff 100%);
+        color: #071120;
+        box-shadow: 0 16px 30px rgba(255,255,255,0.12);
+      }
+
+      .secondary-btn {
+        background: rgba(255,255,255,0.03);
+        border-color: rgba(255,255,255,0.12);
+        color: var(--accent);
+      }
+
+      .ghost-btn {
+        background: transparent;
+        border: 1px solid rgba(143,227,255,0.2);
+        color: var(--secondary);
+      }
+
+      .primary-btn:hover,
+      .secondary-btn:hover,
+      .ghost-btn:hover,
+      .checkout-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .hero-metrics {
+        margin-top: 26px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .metric {
+        padding: 12px 0;
+      }
+
+      .metric strong {
+        font-size: 1.6rem;
+        display: block;
+      }
+
+      .metric span {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .hero-card {
+        position: relative;
+      }
+
+      .mock-window {
+        position: relative;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 28px;
+        padding: 16px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(9, 13, 24, 0.96));
+        box-shadow: var(--shadow);
+      }
+
+      .window-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .dot.red { background: #ff6467; }
+      .dot.yellow { background: #f6c46f; }
+      .dot.green { background: #64e7a0; }
+
+      .showcase {
+        border-radius: 18px;
+        border: 1px solid rgba(143,227,255,0.18);
+        padding: 18px;
+        background: linear-gradient(180deg, rgba(143,227,255,0.05), rgba(255,255,255,0.02));
+      }
+
+      .showcase-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .pill {
+        display: inline-flex;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.72rem;
+        border-radius: 999px;
+        background: rgba(123, 240, 211, 0.12);
+        color: var(--success);
+        border: 1px solid rgba(123,240,211,0.22);
+      }
+
+      .showcase h3 {
+        margin: 0 0 18px;
+        font-size: 1.35rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .token-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .token-row .meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .token-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, rgba(143,227,255,0.18), rgba(255,255,255,0.08));
+        color: var(--secondary);
+        font-size: 0.8rem;
+      }
+
+      .token-row small {
+        display: block;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .price {
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .section {
+        padding: 84px 0;
+      }
+
+      .section-heading {
+        max-width: 720px;
+        margin: 0 auto 32px;
+        text-align: center;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(2rem, 3vw, 3.3rem);
+        letter-spacing: -0.06em;
+        margin: 0 0 14px;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        background: linear-gradient(180deg, rgba(14, 20, 31, 0.94), rgba(9, 14, 23, 0.92));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 22px 18px 18px;
+        min-height: 100%;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(143,227,255,0.28);
+        box-shadow: 0 18px 40px rgba(143,227,255,0.08);
+      }
+
+      .product-card:nth-child(2) {
+        border-color: rgba(143,227,255,0.28);
+        box-shadow: 0 15px 40px rgba(143,227,255,0.08);
+      }
+
+      .product-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .product-card .icon {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(143,227,255,0.15), rgba(255,255,255,0.06));
+        border: 1px solid rgba(143,227,255,0.16);
+        font-size: 1.2rem;
+      }
+
+      .mini-badge {
+        padding: 0.38rem 0.7rem;
+        font-size: 0.68rem;
+        border-radius: 999px;
+        color: var(--secondary);
+        background: rgba(143,227,255,0.06);
+        border: 1px solid rgba(143,227,255,0.18);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .product-card h3 {
+        margin: 0;
+        font-size: 1.26rem;
+        letter-spacing: -0.04em;
+      }
+
+      .product-card .tag {
+        display: inline-block;
+        color: var(--muted);
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .product-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+        color: #dfe8f9;
+      }
+
+      .feature-list li {
+        position: relative;
+        padding-left: 20px;
+        color: var(--muted);
+      }
+
+      .feature-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success);
+      }
+
+      .product-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .product-price {
+        font-size: 1.7rem;
+        letter-spacing: -0.07em;
+        font-weight: 900;
+      }
+
+      .product-price span {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .checkout-btn {
+        background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+        border: 1px solid rgba(255,255,255,0.08);
+        color: var(--accent);
+      }
+
+      .trust-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 42px;
+      }
+
+      .trust-box {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 18px;
+        padding: 20px 18px;
+        text-align: center;
+      }
+
+      .trust-box strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      .trust-box span {
+        color: var(--muted);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .step-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 24px 20px;
+      }
+
+      .step-number {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(143,227,255,0.12), rgba(255,255,255,0.05));
+        border: 1px solid rgba(143,227,255,0.15);
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      .step-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+      }
+
+      .step-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .feature-band {
+        padding: 32px 0 0;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .feature-card {
+        padding: 24px 20px;
+        border-radius: 22px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, rgba(143,227,255,0.15), rgba(255,255,255,0.05));
+        color: var(--secondary);
+        font-size: 1.1rem;
+        border: 1px solid rgba(143,227,255,0.14);
+        margin-bottom: 16px;
+      }
+
+      .feature-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.08rem;
+      }
+
+      .feature-card p {
+        margin: 0;
+        line-height: 1.75;
+        color: var(--muted);
+      }
+
+      .faq {
+        max-width: 960px;
+        margin: 0 auto;
+        display: grid;
+        gap: 16px;
+      }
+
+      .faq-item {
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.02);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .faq-question {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: none;
+        border: none;
+        padding: 20px 22px;
+        color: var(--accent);
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease;
+        color: var(--muted);
+        padding: 0 22px;
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 220px;
+        padding: 0 22px 20px;
+      }
+
+      .faq-item.active .faq-question .toggle {
+        transform: rotate(45deg);
+      }
+
+      .toggle {
+        display: inline-block;
+        font-size: 1.4rem;
+        transition: transform 0.2s ease;
+      }
+
+      .cta-panel {
+        background: linear-gradient(180deg, rgba(15,23,42,0.94), rgba(9,14,24,0.97));
+        border: 1px solid rgba(143,227,255,0.12);
+        border-radius: 30px;
+        padding: clamp(24px, 3vw, 36px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .cta-text h2 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 3vw, 3rem);
+        letter-spacing: -0.06em;
+      }
+
+      .cta-text p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .footer {
+        padding: 26px 0 60px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 26px;
+      }
+
+      .whatsapp-float {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 90;
+        width: 64px;
+        height: 64px;
+        padding: 0;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #25d366 0%, #18b85d 100%);
+        border: 1px solid rgba(255,255,255,0.15);
+        box-shadow: 0 18px 35px rgba(37, 211, 102, 0.34);
+        color: #ffffff;
+        font-size: 1.8rem;
+      }
+
+      .whatsapp-float:hover {
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+        display: block;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(3,6,14,0.72);
+        backdrop-filter: blur(10px);
+        z-index: 200;
+        padding: 20px;
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal-card {
+        width: min(720px, 100%);
+        background: linear-gradient(180deg, rgba(15,23,42,0.98), rgba(8,12,22,0.98));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .close-btn {
+        border: none;
+        background: rgba(255,255,255,0.04);
+        color: var(--accent);
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 1.3rem;
+        cursor: pointer;
+      }
+
+      .modal-card h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 2vw, 2.4rem);
+        letter-spacing: -0.06em;
+      }
+
+      .modal-layout {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 22px;
+        margin-top: 18px;
+      }
+
+      .summary-box,
+      .checkout-box {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin: 15px 0;
+        color: var(--muted);
+      }
+
+      .summary-row strong {
+        color: var(--accent);
+      }
+
+      .divider {
+        height: 1px;
+        background: rgba(255,255,255,0.08);
+        margin: 14px 0;
+      }
+
+      .checkout-box label {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .checkout-box input {
+        width: 100%;
+        padding: 0.95rem 1rem;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: var(--accent);
+        font: inherit;
+        margin-bottom: 18px;
+      }
+
+      .checkout-box input:focus {
+        outline: 1px solid rgba(143,227,255,0.4);
+      }
+
+      .secure-note {
+        color: var(--muted);
+        font-size: 0.82rem;
+        margin-top: 8px;
+        line-height: 1.6;
+      }
+
+      .modal-status {
+        display: none;
+        margin-top: 20px;
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(123, 240, 211, 0.08);
+        border: 1px solid rgba(123,240,211,0.2);
+        color: var(--accent);
+      }
+
+      .modal-status.visible {
+        display: block;
+      }
+
+      .status-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+      }
+
+      .status-head .dot {
+        width: 12px;
+        height: 12px;
+        background: var(--success);
+        box-shadow: 0 0 20px rgba(123, 240, 211, 0.8);
+      }
+
+      .success-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .success-actions a,
+      .success-actions button {
+        font: inherit;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .products-grid,
+        .feature-grid,
+        .steps,
+        .modal-layout,
+        .trust-strip {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .topbar-inner {
+          min-height: 72px;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .nav-cta {
+          padding: 0.8rem 1rem;
+          font-size: 0.82rem;
+        }
+
+        .hero {
+          padding-top: 50px;
+        }
+
+        .hero-copy p {
+          font-size: 1rem;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .primary-btn,
+        .secondary-btn,
+        .ghost-btn,
+        .checkout-btn,
+        .nav-cta {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .products-grid,
+        .feature-grid,
+        .steps,
+        .trust-strip,
+        .modal-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-panel,
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .container {
+          width: min(100% - 20px, 1180px);
+        }
+
+        .whatsapp-float {
+          right: 18px;
+          bottom: 18px;
+          width: 58px;
+          height: 58px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a href="#top" class="brand" aria-label="White Solutions home">
+          <span class="brand-mark"><span>W</span></span>
+          <span>White Solutions</span>
+        </a>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#products">Products</a>
+          <a href="#process">Process</a>
+          <a href="#benefits">Why choose us</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <a href="#products" class="nav-cta">Browse catalog</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Premium digital assets</div>
+            <h1>
+              Built for <span class="gradient-text">operators</span> who want leverage,
+              speed, and premium execution.
+            </h1>
+            <p>
+              White Solutions delivers conversion-ready digital products that help founders,
+              traders, developers, and operators build faster, automate smarter, and launch with confidence.
+            </p>
+            <div class="hero-actions">
+              <a href="#products" class="primary-btn">Explore all products</a>
+              <a href="#process" class="secondary-btn">How it works</a>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>4</strong>
+                <span>Premium products</span>
+              </div>
+              <div class="metric">
+                <strong>24/7</strong>
+                <span>Download access</span>
+              </div>
+              <div class="metric">
+                <strong>100%</strong>
+                <span>Digital delivery</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card" aria-label="Product showcase">
+            <div class="mock-window">
+              <div class="window-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+
+              <div class="showcase">
+                <div class="showcase-top">
+                  <div>
+                    <small style="color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Featured package</small>
+                  </div>
+                  <span class="pill">Top seller</span>
+                </div>
+
+                <h3>Algorithmic Trading Scripts</h3>
+
+                <div class="stack">
+                  <div class="token-row">
+                    <div class="meta">
+                      <div class="token-icon">A</div>
+                      <div>
+                        <strong>Execution logic</strong>
+                        <small>Risk-managed automation</small>
+                      </div>
+                    </div>
+                    <span class="price">$450</span>
+                  </div>
+
+                  <div class="token-row">
+                    <div class="meta">
+                      <div class="token-icon">B</div>
+                      <div>
+                        <strong>Backend systems</strong>
+                        <small>Production deployment flow</small>
+                      </div>
+                    </div>
+                    <span class="price">$600</span>
+                  </div>
+
+                  <div class="token-row">
+                    <div class="meta">
+                      <div class="token-icon">S</div>
+                      <div>
+                        <strong>Smart contracts</strong>
+                        <small>On-chain templates</small>
+                      </div>
+                    </div>
+                    <span class="price">$929</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Premium tools for founders, operators, and digital builders.</h2>
+            <p>
+              Each package is designed to accelerate delivery, reduce engineering risk, and turn strategy into a deployable system.
+            </p>
+          </div>
+
+          <div class="products-grid">
+            <article class="product-card">
+              <div class="product-top">
+                <div class="icon">📈</div>
+                <span class="mini-badge">Top seller</span>
+              </div>
+              <div>
+                <h3>Algorithmic Trading Scripts</h3>
+                <span class="tag">Signal + execution systems</span>
+              </div>
+              <p>
+                Build around an execution-first workflow with rule-based systems designed to manage risk, entries, exits, and signal logic.
+              </p>
+              <ul class="feature-list">
+                <li>Backtested strategy frameworks</li>
+                <li>Trade journaling and analytics</li>
+                <li>Risk-aware execution logic</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price">$450 <span>USD</span></div>
+                <button class="checkout-btn" data-product-id="algorithmic-trading-scripts" data-product-name="Algorithmic Trading Scripts" data-price="450">Buy now</button>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-top">
+                <div class="icon">⚙️</div>
+                <span class="mini-badge">Most valuable</span>
+              </div>
+              <div>
+                <h3>Deployment & Backend Boilerplates</h3>
+                <span class="tag">Production build systems</span>
+              </div>
+              <p>
+                Launch quickly with clean backend architecture, secure auth patterns, API scaffolding, and deployment-ready production templates.
+              </p>
+              <ul class="feature-list">
+                <li>Express + API structured setup</li>
+                <li>Secure authentication flows</li>
+                <li>Render and Netlify deployment ready</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price">$600 <span>USD</span></div>
+                <button class="checkout-btn" data-product-id="deployment-backend-boilerplates" data-product-name="Deployment & Backend Boilerplates" data-price="600">Buy now</button>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-top">
+                <div class="icon">🔗</div>
+                <span class="mini-badge">Premium</span>
+              </div>
+              <div>
+                <h3>Smart Contract Templates</h3>
+                <span class="tag">On-chain product systems</span>
+              </div>
+              <p>
+                Use battle-tested Solidity structure for vaults, staking flows, token logic, governance patterns, and secure blockchain operations.
+              </p>
+              <ul class="feature-list">
+                <li>Auditable contract foundations</li>
+                <li>Token and governance patterns</li>
+                <li>Upgradeable architecture layout</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price">$929 <span>USD</span></div>
+                <button class="checkout-btn" data-product-id="smart-contract-templates" data-product-name="Smart Contract Templates" data-price="929">Buy now</button>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-top">
+                <div class="icon">🤖</div>
+                <span class="mini-badge">Essential</span>
+              </div>
+              <div>
+                <h3>Automation Scripts</h3>
+                <span class="tag">Workflow acceleration</span>
+              </div>
+              <p>
+                Remove repetitive work with automation tools built for business task flows, API orchestration, and operational efficiency.
+              </p>
+              <ul class="feature-list">
+                <li>API automation flows</li>
+                <li>Task scheduling and logging</li>
+                <li>Operational reporting systems</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price">$299 <span>USD</span></div>
+                <button class="checkout-btn" data-product-id="automation-scripts" data-product-name="Automation Scripts" data-price="299">Buy now</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="trust-strip" aria-label="Brand trust metrics">
+            <div class="trust-box">
+              <strong>4</strong>
+              <span>Signature products</span>
+            </div>
+            <div class="trust-box">
+              <strong>24/7</strong>
+              <span>Access delivery</span>
+            </div>
+            <div class="trust-box">
+              <strong>Secure</strong>
+              <span>Verified checkout</span>
+            </div>
+            <div class="trust-box">
+              <strong>PDF</strong>
+              <span>Instant download</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process">
+        <div class="container">
+          <div class="section-heading">
+            <h2>How the purchase flow works.</h2>
+            <p>
+              The buying experience is built to feel premium, secure, and frictionless from checkout to file delivery.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step-card">
+              <div class="step-number">01</div>
+              <h3>Select your package</h3>
+              <p>Choose the digital product that matches your goals, whether it is automation, backend systems, contracts, or trading scripts.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">02</div>
+              <h3>Secure checkout</h3>
+              <p>Complete payment through a verified purchase flow that triggers the delivery workflow immediately after purchase validation.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">03</div>
+              <h3>Receive your PDF instantly</h3>
+              <p>Once verified, the customer receives the PDF download link in their email and is redirected to the secure access page.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature-band" id="benefits">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Why White Solutions stands apart.</h2>
+            <p>
+              Everything is created with a high-value, high-trust mindset for buyers who expect clarity, speed, and meaningful outcomes.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon">✦</div>
+              <h3>High-conviction product positioning</h3>
+              <p>Each package is positioned as performance-oriented and operationally useful, not generic digital clutter.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🧠</div>
+              <h3>Built by a senior full-stack mindset</h3>
+              <p>We combine technical delivery with real product thinking so the system is polished, professional, and conversion-ready.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">⚡</div>
+              <h3>Operationally ready</h3>
+              <p>From business flow to delivery logic, the experience is designed to work in real-world launch and growth scenarios.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Frequently asked questions.</h2>
+          </div>
+
+          <div class="faq" aria-label="Frequently asked questions">
+            <div class="faq-item active">
+              <button class="faq-question" type="button">
+                <span>What happens after payment is successful?</span>
+                <span class="toggle">+</span>
+              </button>
+              <div class="faq-answer">
+                Once the payment is verified, the customer is sent the secure PDF download link via email and redirected to the delivery page with instant access.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>Do I get the files immediately after purchase?</span>
+                <span class="toggle">+</span>
+              </button>
+              <div class="faq-answer">
+                Yes. The purchase trigger validates the order and immediately exposes the secure file access flow, allowing the user to access the PDF metadata and download link without delay.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>Can I deploy the frontend and backend separately?</span>
+                <span class="toggle">+</span>
+              </button>
+              <div class="faq-answer">
+                Yes. This storefront is designed to sit on Netlify as a static front end, while the backend can be deployed on Render using the provided Node.js start flow.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>Is this built for professional product sales?</span>
+                <span class="toggle">+</span>
+              </button>
+              <div class="faq-answer">
+                Absolutely. The brand, layout, and checkout flow are structured for a premium digital products business with a premium conversion-first experience.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel">
+            <div class="cta-text">
+              <h2>Premium digital products, sold with precision.</h2>
+              <p>Choose the product that fits your vision and secure your access today.</p>
+            </div>
+            <a href="#products" class="primary-btn">Buy now</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="brand">
+          <span class="brand-mark"><span>W</span></span>
+          <span>White Solutions</span>
+        </div>
+        <div>© 2026 White Solutions. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <a
+      href="https://wa.me/966591844785"
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+      title="Chat on WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M20.52 3.48A11.8 11.8 0 0 0 12.08 0C5.48 0 .12 5.36.12 11.96c0 2.12.55 4.18 1.59 5.98L0 24l6.25-1.64a11.96 11.96 0 0 0 5.83 1.77h.01c6.6 0 11.96-5.36 11.96-11.96 0-3.2-1.25-6.2-3.48-8.46Zm-8.44 18.42h-.01a9.97 9.97 0 0 1-5.08-1.39l-.36-.21-3.71.97 1-3.62-.24-.37a9.92 9.92 0 0 1-1.53-5.2c0-5.49 4.47-9.96 9.97-9.96 2.66 0 5.16 1.04 7.04 2.93A9.9 9.9 0 0 1 20.48 11.96c0 5.49-4.47 9.96-9.96 9.96Zm5.46-7.46c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.22-.65.08-.3-.15-1.27-.47-2.41-1.5-.89-.79-1.49-1.75-1.67-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.08-.8.38-.28.3-1.07 1.05-1.07 2.57 0 1.52 1.09 2.98 1.24 3.18.15.2 2.14 3.27 5.18 4.59.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.78-.73 2.03-1.43.25-.7.25-1.3.17-1.43-.08-.13-.27-.2-.57-.35Z"/>
+      </svg>
+    </a>
+
+    <div class="modal" id="checkoutModal" aria-modal="true" role="dialog" aria-labelledby="checkoutTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <h3 id="checkoutTitle">Complete your purchase</h3>
+          </div>
+          <button class="close-btn" id="closeModal" type="button" aria-label="Close checkout panel">×</button>
+        </div>
+
+        <div class="modal-layout">
+          <div class="summary-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              <div>
+                <small style="color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Selected item</small>
+                <h4 id="modalProductName" style="margin: 6px 0 0; font-size: 1.5rem; letter-spacing: -0.06em;">Algorithmic Trading Scripts</h4>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="summary-row">
+              <span>Product</span>
+              <strong id="modalProductLabel">Algorithmic Trading Scripts</strong>
+            </div>
+            <div class="summary-row">
+              <span>Delivery</span>
+              <strong>Instant PDF link</strong>
+            </div>
+            <div class="summary-row">
+              <span>Payment</span>
+              <strong>Secure checkout</strong>
+            </div>
+            <div class="divider"></div>
+            <div class="summary-row">
+              <span>Total</span>
+              <strong id="modalPrice">$450</strong>
+            </div>
+          </div>
+
+          <div class="checkout-box">
+            <label for="customerEmail">Email address</label>
+            <input id="customerEmail" type="email" placeholder="you@example.com" />
+            <button id="paymentButton" class="primary-btn" type="button" style="width: 100%;">Proceed to secure checkout</button>
+            <div class="secure-note">Your payment is processed securely. Upon successful purchase, the PDF link is sent to the email provided and you are redirected to the download page.</div>
+          </div>
+        </div>
+
+        <div class="modal-status" id="paymentStatus" aria-live="polite">
+          <div class="status-head">
+            <span class="dot"></span>
+            <span>Payment successful</span>
+          </div>
+          <p style="margin: 12px 0 0; color: #dfe8f9; line-height: 1.6;">Your PDF link has been sent to your email. You will now be redirected to the secure download page.</p>
+          <div class="success-actions">
+            <a id="downloadLink" class="secondary-btn" href="#" target="_blank" rel="noreferrer">Open download</a>
+            <button class="ghost-btn" id="closeStatusBtn" type="button">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById('checkoutModal');
+      const closeModalBtn = document.getElementById('closeModal');
+      const closeStatusBtn = document.getElementById('closeStatusBtn');
+      const modalProductName = document.getElementById('modalProductName');
+      const modalProductLabel = document.getElementById('modalProductLabel');
+      const modalPrice = document.getElementById('modalPrice');
+      const paymentButton = document.getElementById('paymentButton');
+      const emailInput = document.getElementById('customerEmail');
+      const paymentStatus = document.getElementById('paymentStatus');
+      const downloadLink = document.getElementById('downloadLink');
+
+      let activeProduct = null;
+
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach((item) => {
+        item.querySelector('.faq-question').addEventListener('click', () => {
+          faqItems.forEach((faq) => faq.classList.toggle('active', faq === item && !faq.classList.contains('active')));
+        });
+      });
+
+      function formatPrice(value) {
+        return `$${Number(value).toLocaleString()}`;
+      }
+
+      function openModal(productId, name, price) {
+        activeProduct = { productId, name, price };
+        modalProductName.textContent = name;
+        modalProductLabel.textContent = name;
+        modalPrice.textContent = formatPrice(price);
+        modal.classList.add('open');
+        emailInput.focus();
+      }
+
+      document.querySelectorAll('.checkout-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          const { productId, productName, price } = button.dataset;
+          openModal(productId, productName, price);
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove('open');
+        paymentStatus.classList.remove('visible');
+      }
+
+      closeModalBtn.addEventListener('click', closeModal);
+      closeStatusBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      paymentButton.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        if (!email || !email.includes('@')) {
+          emailInput.focus();
+          emailInput.style.borderColor = 'rgba(255,100,103,0.5)';
+          return;
+        }
+
+        emailInput.style.borderColor = 'rgba(255,255,255,0.08)';
+
+        try {
+          const API_BASE_URL = 'https://whitesolutionss.onrender.com';
+          const response = await fetch(`${API_BASE_URL}/api/checkout`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: activeProduct.productId, email })
+          });
+
+          const data = await response.json();
+
+          if (!data.success) {
+            throw new Error(data.error || 'Checkout failed.');
+          }
+
+          paymentStatus.classList.add('visible');
+          const downloadUrl = data.downloadUrl.startsWith('http') ? data.downloadUrl : `${API_BASE_URL}${data.downloadUrl}`;
+          downloadLink.href = downloadUrl;
+
+          setTimeout(() => {
+            window.open(downloadUrl, '_blank', 'noopener,noreferrer');
+          }, 1000);
+
+          paymentButton.textContent = 'Payment verified';
+          paymentButton.disabled = true;
+
+          setTimeout(() => {
+            paymentButton.textContent = 'Proceed to secure checkout';
+            paymentButton.disabled = false;
+          }, 2500);
+        } catch (error) {
+          paymentStatus.classList.add('visible');
+          paymentStatus.querySelector('p').textContent = error.message || 'Unable to complete payment. Please try again.';
+          paymentStatus.style.background = 'rgba(255,100,103,0.08)';
+          paymentStatus.style.borderColor = 'rgba(255,100,103,0.2)';
+        }
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('payment') === 'success') {
+          const productName = params.get('product') || 'White Solutions Product';
+          modalProductName.textContent = productName;
+          paymentStatus.classList.add('visible');
+          modal.classList.add('open');
+        }
+      });
+    </script>
+  </body>
+</html>
