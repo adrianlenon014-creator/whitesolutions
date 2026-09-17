@@ -24,6 +24,7 @@ const PORT = process.env.PORT || 3000;
 const WHOP_ACCOUNT_ID = process.env.WHOP_ACCOUNT_ID || '';
 const WHOP_API_KEY = process.env.WHOP_API_KEY || '';
 const WHOP_WEBHOOK_SECRET = process.env.WHOP_WEBHOOK_SECRET || '';
+const WHOP_CHECKOUT_URL = process.env.WHOP_CHECKOUT_URL || '';
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || process.env.APP_BASE_URL || '';
 const SMTP_HOST = process.env.SMTP_HOST || '';
 const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
@@ -136,6 +137,13 @@ function normalizeEmail(value) {
 
 function getProductById(productId) {
   return products.find((item) => item.id === productId);
+}
+
+function getWhopCheckoutUrl(product) {
+  if (!product) return '';
+
+  const envKey = `WHOP_CHECKOUT_URL_${product.id.toUpperCase().replace(/-/g, '_')}`;
+  return process.env[envKey] || WHOP_CHECKOUT_URL || '';
 }
 
 function verifyWhopSignature(rawBody, signature, secret) {
@@ -254,17 +262,16 @@ app.post('/api/checkout', async (req, res) => {
   }
 
   const normalizedEmail = normalizeEmail(email || 'customer@whitesolutions.com');
-  const token = createDownloadToken(product.id, normalizedEmail);
-  const downloadUrl = `${getPublicBaseUrl(req)}/download/${product.id}?token=${token}`;
+  const checkoutUrl = getWhopCheckoutUrl(product);
 
-  grantedAccess.set(token, {
-    productId: product.id,
-    email: normalizedEmail,
-    productName: product.name,
-    issuedAt: Date.now(),
-  });
-
-  await sendDeliveryEmail({ email: normalizedEmail, productName: product.name, downloadUrl });
+  if (!checkoutUrl) {
+    return res.status(400).json({
+      success: false,
+      error: 'Whop checkout URL is not configured. Add WHOP_CHECKOUT_URL or WHOP_CHECKOUT_URL_<PRODUCT_ID> in Render.',
+      productId: product.id,
+      email: normalizedEmail,
+    });
+  }
 
   return res.json({
     success: true,
@@ -272,8 +279,8 @@ app.post('/api/checkout', async (req, res) => {
     productName: product.name,
     price: product.price,
     email: normalizedEmail,
-    downloadUrl,
-    message: 'Payment verified successfully. Your secure PDF download link is ready.',
+    checkoutUrl,
+    message: 'Redirecting to secure Whop checkout.',
     accountIdConfigured: Boolean(WHOP_ACCOUNT_ID),
     apiKeyConfigured: Boolean(WHOP_API_KEY),
   });

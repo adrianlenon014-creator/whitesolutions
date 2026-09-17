@@ -1473,8 +1473,20 @@
             throw new Error(data.error || 'Checkout failed.');
           }
 
+          if (data.checkoutUrl) {
+            paymentStatus.classList.add('visible');
+            paymentStatus.querySelector('p').textContent = 'Redirecting to the secure Whop checkout page...';
+            paymentButton.textContent = 'Redirecting...';
+            paymentButton.disabled = true;
+
+            setTimeout(() => {
+              window.location.href = data.checkoutUrl;
+            }, 800);
+            return;
+          }
+
           paymentStatus.classList.add('visible');
-          const downloadUrl = data.downloadUrl.startsWith('http') ? data.downloadUrl : `${API_BASE_URL}${data.downloadUrl}`;
+          const downloadUrl = data.downloadUrl && data.downloadUrl.startsWith('http') ? data.downloadUrl : `${API_BASE_URL}${data.downloadUrl || ''}`;
           downloadLink.href = downloadUrl;
 
           setTimeout(() => {
