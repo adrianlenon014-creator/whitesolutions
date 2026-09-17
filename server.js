@@ -1,5 +1,6 @@
 const express = require('express');
 const crypto = require('crypto');
+const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 
@@ -28,6 +29,7 @@ const products = [
     description: 'Institutional-grade trading scripts built for automation, execution logic, risk controls, and signal generation.',
     features: ['Backtested strategy logic', 'Execution and risk engine', 'Trading journal + analytics'],
     downloadLabel: 'Algorithmic Trading Scripts PDF',
+    pdfFile: 'algorithmic-trading-scripts.pdf',
   },
   {
     id: 'deployment-backend-boilerplates',
@@ -38,6 +40,7 @@ const products = [
     description: 'Launch fast with ready-to-deploy backend stacks for APIs, auth, admin systems, and secure production workflows.',
     features: ['Node.js + Express architecture', 'Secure authentication patterns', 'Deployment configs for Render & Netlify'],
     downloadLabel: 'Deployment & Backend Boilerplates PDF',
+    pdfFile: 'deployment-backend-boilerplates.pdf',
   },
   {
     id: 'smart-contract-templates',
@@ -48,6 +51,7 @@ const products = [
     description: 'Secure Solidity starter templates for vaults, staking, token flows, governance, and blockchain-enabled product launches.',
     features: ['Auditable Solidity structure', 'Upgradeable contract patterns', 'Token & governance frameworks'],
     downloadLabel: 'Smart Contract Templates PDF',
+    pdfFile: 'smart-contract-templates.pdf',
   },
   {
     id: 'automation-scripts',
@@ -58,6 +62,7 @@ const products = [
     description: 'Automate repetitive business and dev tasks with scripts that save time, reduce errors, and increase operational leverage.',
     features: ['API automation logic', 'Lead workflow tooling', 'Task scheduling and reporting'],
     downloadLabel: 'Automation Scripts PDF',
+    pdfFile: 'automation-scripts.pdf',
   },
 ];
 
@@ -171,6 +176,7 @@ async function sendDeliveryEmail({ email, productName, downloadUrl }) {
 }
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/pdfs', express.static(path.join(__dirname, 'pdfs')));
 
 app.post('/api/whop/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   try {
@@ -276,10 +282,15 @@ app.get('/download/:productId', (req, res) => {
     return res.status(401).send('Unauthorized access. Please complete the purchase first.');
   }
 
-  const pdfBuffer = buildPdfDocument(product.name, product.description);
+  const pdfPath = path.join(__dirname, 'pdfs', product.pdfFile);
+
+  if (!fs.existsSync(pdfPath)) {
+    return res.status(404).send('PDF file not found. Please upload the file for this product.');
+  }
+
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', `attachment; filename="${product.downloadLabel.replace(/\s+/g, '-').toLowerCase()}.pdf"`);
-  return res.send(pdfBuffer);
+  return res.sendFile(pdfPath);
 });
 
 app.get('/', (req, res) => {
